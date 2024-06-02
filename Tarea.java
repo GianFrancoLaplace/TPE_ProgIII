@@ -1,69 +1,27 @@
-package ProgramacionIII.tpe;
+package tpe;
 
 public class Tarea {
-    private String id;
-    private String nombre;
-    private int tiempo;
-    private boolean critica;
-    private int prioridad;
-
-    public Tarea(String id, String nombre, int tiempo, boolean critica, int prioridad) {
-        this.id = id;
-        this.nombre = nombre;
-        this.tiempo = tiempo;
-        this.critica = critica;
-        this.prioridad = prioridad;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getTiempo() {
-        return tiempo;
-    }
-
-    public void setTiempo(int tiempo) {
-        this.tiempo = tiempo;
-    }
-
-    public boolean isCritica() {
-        return critica;
-    }
-
-    public void setCritica(boolean critica) {
-        this.critica = critica;
-    }
-
-    public int getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(int prioridad) {
-        this.prioridad = prioridad;
+    private String id_tarea;
+    private String nombre_tarea;
+    private Integer tiempo_ejecucion;
+    private Boolean es_critica;
+    private Integer nivel_prioridad;
+    
+    public Tarea(String id_tarea, String nombre_tarea, Integer tiempo_ejecucion, Boolean es_critica,
+            Integer nivel_prioridad) {
+        this.id_tarea = id_tarea;
+        this.nombre_tarea = nombre_tarea;
+        this.tiempo_ejecucion = tiempo_ejecucion;
+        this.es_critica = es_critica;
+        this.nivel_prioridad = nivel_prioridad;
     }
 
     @Override
     public String toString() {
-        return "Tarea [id=" + id + ", nombre=" + nombre + ", tiempo=" + tiempo + ", critica=" + critica + ", prioridad="
-                + prioridad + "]";
+        return "Tarea [id_tarea=" + id_tarea + ", nombre_tarea=" + nombre_tarea + ", tiempo_ejecucion="
+                + tiempo_ejecucion + ", es_critica=" + es_critica + ", nivel_prioridad=" + nivel_prioridad + "]";
     }
 
     
 
-    
-
-    
 }

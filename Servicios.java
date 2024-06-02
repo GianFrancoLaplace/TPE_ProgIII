@@ -1,9 +1,11 @@
-package ProgramacionIII.tpe;
-import ProgramacionIII.tpe.utils.CSVReader;
+package tpe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
+import java.util.TreeMap;
+
+import tpe.utils.CSVReader;
 
 /**
  * NO modificar la interfaz de esta clase ni sus métodos públicos.
@@ -12,38 +14,52 @@ import java.util.List;
  */
 public class Servicios {
 
-	private HashMap<String, Tarea> hashTareaId;
-	private HashSet<Boolean, Tarea> hashTareaCritica;
+	private HashMap<String , Tarea> tareasPorID;
+	private ArrayList<Tarea> criticas;
+	private ArrayList<Tarea> noCriticas;
+	private TreeMap<Integer, Tarea> tareasPorPrioridad;
+	private HashMap<String, Procesador> procesadores;
+	/*
+	 * Expresar la complejidad temporal del constructor.
+	 */
+	//COMPLEJIDAD O(M + N) DONDE M ES NUMERO DE PROCESADORES Y N ES NUMERO DE TAREAS
+	//QUE SE VAN LEYENDO 1 A 1 CON EL FOR IMPLEMENTADO EN CSVREADER
+	public Servicios(String pathProcesadores, String pathTareas) {
+		this.tareasPorID = new HashMap<>();
+        this.criticas = new ArrayList<>();
+        this.noCriticas = new ArrayList<>();
+        this.tareasPorPrioridad = new TreeMap<>();
+		this.procesadores = new HashMap<>();
+		CSVReader.readProcessors(pathProcesadores, procesadores);
+		CSVReader.readTasks(pathTareas, tareasPorID, criticas, noCriticas, tareasPorPrioridad);
+		
+	}
 
 	/*
-     * Expresar la complejidad temporal del constructor.
-     */
-	public Servicios(String pathProcesadores, String pathTareas)
-	{
-		CSVReader reader = new CSVReader();
-		reader.readProcessors(pathProcesadores);
-		reader.readTasks(pathTareas);
-		hashTareaId = reader.getHashId();
-		hashTareaCritica = reader.getHashCritica();
-	}
-	
-	/*
-     * Expresar la complejidad temporal del servicio 1.
-     */
+	 * Expresar la complejidad temporal del servicio 1.
+	 */
+	//COMPLEJIDAD PROMEDIO O(1) PARA BUSCAR EN HASHMAP
 	public Tarea servicio1(String ID) {
-		return tareas.get(ID);
-	}
-    
-    /*
-     * Expresar la complejidad temporal del servicio 2.
-     */
-	public List<Tarea> servicio2(boolean esCritica) {
-		return hashTareaCritica.get(esCritica);
+		Tarea id = tareasPorID.get(ID);
+		return id;
 	}
 
-    /*
-     * Expresar la complejidad temporal del servicio 3.
-     */
-	// public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) { }
+	/*
+	 * Expresar la complejidad temporal del servicio 2.
+	 */
+	//COMPLEJIDAD O(n) DONDE N ES LA CANTIDAD DE ELEMENTOS DE LA LISTA 
+	public List<Tarea> servicio2(boolean esCritica) {
+		return esCritica ? new ArrayList<>(criticas) : new ArrayList<>(noCriticas);
+	}
+
+	/*
+	 * Expresar la complejidad temporal del servicio 3.
+	 */
+	//COMPLEJIDAD O(LOG N) PARA ENCONTRAR LOS VALORES EN EL TREEMAP
+	//COMPLEJIDAD O(M) PARA COPIAR LOS VALORES A LA LISTA, DONDE M ES EL NÚMERO DE ELEMENTOS DEL SUBMAP
+	//COMPLEJIDAD DEL SERVICIO: O(LOG N + M)
+	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
+		return new ArrayList<>(tareasPorPrioridad.subMap(prioridadInferior, true, prioridadSuperior, true).values());
+	}
 
 }

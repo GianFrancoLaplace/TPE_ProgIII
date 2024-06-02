@@ -1,6 +1,5 @@
-package ProgramacionIII.tpe.utils;
+package tpe.utils;
 
-import ProgramacionIII.tpe.Tarea;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,41 +7,24 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.TreeMap;
+
+import tpe.Procesador;
+import tpe.Tarea;
+
 
 
 public class CSVReader {
 
-	private HashMap<String, Tarea> hashId;
-	private HashMap<Boolean, Tarea> hashCritica;
-	// private TreeSet<String, Tarea> tree;
 
-	public CSVReader() {
-		this.hashId = new HashMap<String, Tarea>();
-		this.hashCritica = new HashMap<>();
-	}
-	
-	public HashMap<String, Tarea> getHashId(){
-		return this.hashId;
-	}
-
-    public HashMap<Boolean, Tarea> getHashCritica() {
-        return this.hashCritica;
-    }
-
-    /* public TreeSet<String, Tarea> getTree() {
-        return tree;
-    } */
 
 	
-
-
-	public void readTasks(String taskPath) {
+	public static void readTasks(String taskPath, HashMap<String, Tarea> tareasPorID, ArrayList<Tarea> criticas, ArrayList<Tarea> noCriticas, TreeMap<Integer , Tarea> tareasPorPrioridad) {
 		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
 		// lines.get(1) tiene la segunda linea del archivo... y así
-		ArrayList<String[]> lines = this.readContent(taskPath);
+		ArrayList<String[]> lines = CSVReader.readContent(taskPath);
 		
 		for (String[] line: lines) {
 			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
@@ -52,18 +34,24 @@ public class CSVReader {
 			Boolean critica = Boolean.parseBoolean(line[3].trim());
 			Integer prioridad = Integer.parseInt(line[4].trim());
 			// Aca instanciar lo que necesiten en base a los datos leidos
-			Tarea tmp = new Tarea(id, nombre, tiempo, critica, prioridad);
-			hashId.put(id, tmp);
-			hashCritica.put(critica, tmp);
-			// tree.?
-		} 
+			Tarea tarea = new Tarea(id, nombre, tiempo, critica, prioridad);
+			tareasPorID.put(id, tarea);
+			tareasPorPrioridad.put(prioridad, tarea);
+			if(critica){
+				criticas.add(tarea);
+			}else{
+				noCriticas.add(tarea);
+			}
+		}
+		
 	}
 	
-public void readProcessors(String processorPath) {
+public static void readProcessors(String processorPath, HashMap<String, Procesador> procesadores) {
+		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
 		// lines.get(1) tiene la segunda linea del archivo... y así
-		ArrayList<String[]> lines = this.readContent(processorPath);
+		ArrayList<String[]> lines = CSVReader.readContent(processorPath);
 		
 		for (String[] line: lines) {
 			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
@@ -72,11 +60,13 @@ public void readProcessors(String processorPath) {
 			Boolean refrigerado = Boolean.parseBoolean(line[2].trim());
 			Integer anio = Integer.parseInt(line[3].trim());
 			// Aca instanciar lo que necesiten en base a los datos leidos
+			Procesador procesador = new Procesador(id, codigo, refrigerado, anio);
+			procesadores.put(id , procesador);
 		}
 		
 	}
 
-	private ArrayList<String[]> readContent(String path) {
+	private static ArrayList<String[]> readContent(String path) {
 		ArrayList<String[]> lines = new ArrayList<String[]>();
 
 		File file = new File(path);
@@ -102,7 +92,5 @@ public void readProcessors(String processorPath) {
 		
 		return lines;
 	}
-
-    
 	
 }

@@ -1,47 +1,18 @@
-package ProgramacionIII.tpe;
+package tpe;
+
 public class Procesador {
-    private String id;
-    private String codigo;
-    private boolean refrigerado;
-    private int anio;
-
-    public Procesador(String id, String codigo, boolean refrigerado, int anio) {
-        this.id = id;
-        this.codigo = codigo;
-        this.refrigerado = refrigerado;
-        this.anio = anio;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public boolean isRefrigerado() {
-        return refrigerado;
-    }
-
-    public int getAnio() {
-        return anio;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public void setRefrigerado(boolean refrigerado) {
-        this.refrigerado = refrigerado;
-    }
-
-    public void setAnio(int anio) {
-        this.anio = anio;
+    
+    private String id_procesador;
+    private String codigo_procesador;
+    private Boolean esta_refrigerado;
+    private Integer anio_funcionamiento;
+    
+    public Procesador(String id_procesador, String codigo_procesador, Boolean esta_refrigerado,
+            Integer anio_funcionamiento) {
+        this.id_procesador = id_procesador;
+        this.codigo_procesador = codigo_procesador;
+        this.esta_refrigerado = esta_refrigerado;
+        this.anio_funcionamiento = anio_funcionamiento;
     }
 
     
