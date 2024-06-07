@@ -19,7 +19,7 @@ public class CSVReader {
 
 
 	
-	public static void readTasks(String taskPath, HashMap<String, Tarea> tareasPorID, ArrayList<Tarea> criticas, ArrayList<Tarea> noCriticas, TreeMap<Integer , Tarea> tareasPorPrioridad) {
+	public static void readTasks(String taskPath, HashMap<String, Tarea> tareasPorID, ArrayList<Tarea> criticas, ArrayList<Tarea> noCriticas, TreeMap<Integer , ArrayList<Tarea>> tareasPorPrioridad) {
 		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
@@ -36,7 +36,9 @@ public class CSVReader {
 			// Aca instanciar lo que necesiten en base a los datos leidos
 			Tarea tarea = new Tarea(id, nombre, tiempo, critica, prioridad);
 			tareasPorID.put(id, tarea);
-			tareasPorPrioridad.put(prioridad, tarea);
+//			tareasPorPrioridad.put(prioridad, tarea);
+			tareasPorPrioridad.put(prioridad, new ArrayList<>());
+			tareasPorPrioridad.get(prioridad).add(tarea);
 			if(critica){
 				criticas.add(tarea);
 			}else{

@@ -17,7 +17,7 @@ public class Servicios {
 	private HashMap<String , Tarea> tareasPorID;
 	private ArrayList<Tarea> criticas;
 	private ArrayList<Tarea> noCriticas;
-	private TreeMap<Integer, Tarea> tareasPorPrioridad;
+	private TreeMap<Integer, ArrayList<Tarea>> tareasPorPrioridad;
 	private HashMap<String, Procesador> procesadores;
 	/*
 	 * Expresar la complejidad temporal del constructor.
@@ -59,7 +59,13 @@ public class Servicios {
 	//COMPLEJIDAD O(M) PARA COPIAR LOS VALORES A LA LISTA, DONDE M ES EL NÚMERO DE ELEMENTOS DEL SUBMAP
 	//COMPLEJIDAD DEL SERVICIO: O(LOG N + M)
 	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
-		return new ArrayList<>(tareasPorPrioridad.subMap(prioridadInferior, true, prioridadSuperior, true).values());
+		ArrayList<Tarea> retorno = new ArrayList<>();
+
+		for( ArrayList<Tarea> tareas : tareasPorPrioridad.subMap(prioridadInferior, true, prioridadSuperior, true).values()) {
+			retorno.addAll(tareas);
+		}
+		return retorno;
+
 	}
 
 }
