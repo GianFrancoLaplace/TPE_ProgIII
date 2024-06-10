@@ -18,7 +18,9 @@ public class Servicios {
 	private ArrayList<Tarea> criticas;
 	private ArrayList<Tarea> noCriticas;
 	private TreeMap<Integer, ArrayList<Tarea>> tareasPorPrioridad;
-	private HashMap<String, Procesador> procesadores;
+	private List<Procesador> procesadores;
+	private ArrayList<Tarea> tareas;
+
 	/*
 	 * Expresar la complejidad temporal del constructor.
 	 */
@@ -29,9 +31,10 @@ public class Servicios {
         this.criticas = new ArrayList<>();
         this.noCriticas = new ArrayList<>();
         this.tareasPorPrioridad = new TreeMap<>();
-		this.procesadores = new HashMap<>();
+		this.procesadores = new ArrayList<>();
+		this.tareas = new ArrayList<>();
 		CSVReader.readProcessors(pathProcesadores, procesadores);
-		CSVReader.readTasks(pathTareas, tareasPorID, criticas, noCriticas, tareasPorPrioridad);
+		CSVReader.readTasks(pathTareas, tareasPorID, criticas, noCriticas, tareasPorPrioridad, tareas);
 		
 	}
 
@@ -47,7 +50,7 @@ public class Servicios {
 	/*
 	 * Expresar la complejidad temporal del servicio 2.
 	 */
-	//COMPLEJIDAD O(n) DONDE N ES LA CANTIDAD DE ELEMENTOS DE LA LISTA 
+	//COMPLEJIDAD O(n) DONDE N ES LA CANTIDAD DE ELEMENTOS DE LA LISTA
 	public List<Tarea> servicio2(boolean esCritica) {
 		return esCritica ? new ArrayList<>(criticas) : new ArrayList<>(noCriticas);
 	}
@@ -68,4 +71,18 @@ public class Servicios {
 
 	}
 
+	
+
+	public Solucion ServicioBack(int tiempoMaximo){
+
+		AsingarTareaProcesadorBacktracking back = new AsingarTareaProcesadorBacktracking(procesadores, tareas, tiempoMaximo);
+		return back.backtracking();
+	}
+
+	public Solucion ServicioGreedy(int tiempoMaximo){
+
+		AsignarTareaProcesadorGreedy g = new AsignarTareaProcesadorGreedy(procesadores, tareas, tiempoMaximo);
+
+		return g.greedy();
+	}
 }
