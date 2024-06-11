@@ -14,21 +14,19 @@ public class AsignarTareaProcesadorGreedy {
         this.procesadores = procesadores;
         this.candidatosConsiderados = 0;
     }
+    
     /*
-        greedy: aplicamos el algortimo de tal manera, que cada iteracion de las tareas provenientes
-        del CSVReader se agreguen a una lista de candidatos, hacemos lo mismo con los procesadores
-        luego en un bucle seleccionamos la primera tarea, la eliminamos de la lista de candidatos
-        y sumamaos uno a la cantidad de canditatos considerados, controlamos si el primer procesador
-        puede asignar la tarea y en tal caso realizarlo, hasta que no haya más candidatos. Por último
-        agregamos los procesadores a la solución y controlamos que la misma sea falida y en caso de serlo
-        asignamos la cantidad de candidatos considerados y retornamos la solución, en caso contrario,
-        usamos una excepción que muestra que no hay solución valida.
-    */
+    Dado un conjunto de procesadores y un conjunto de tareas para asignar a los procesadores lo que hacemos con greedy es
+    ordenar las tareas primero por prioridad(Criticas van primero), luego según tiempo de ejecución de manera descendente
+    y en base a eso se asignan tareas a los procesadores y cuando el procesador ya superó el tiempo de ejecución máximo y
+    alcanza el límite máximo de tareas críticas, lo agrega a otro procesador. Así sucesivamente hasta que no queden mas tareas.
+    Esto devuelve una solución que se considera válida cuando se asignaron todas las tareas.
+    Esta estrategia encuentra la solución más eficiente en el menor tiempo posible, pero no siempre encuentra la mejor solución.
+     */
     public Solucion greedy() {
         SolucionGreedy solucion = new SolucionGreedy();
         ArrayList<Procesador> procesadoresCopia = new ArrayList<>();
         for (Procesador procesador : procesadores) {
-//            solucion.addProcesador(procesador.getCopia());
             procesadoresCopia.add(procesador.getCopia());
         }
         List<Tarea> candidatos = new LinkedList<>();

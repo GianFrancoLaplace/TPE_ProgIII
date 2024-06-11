@@ -19,14 +19,11 @@ public class AsingarTareaProcesadorBacktracking {
     }
 
     /*
-        backtracking: aplicamos el algortimo de tal manera, que en cada recusrsión de este que en
-        caso de que al estado pasado por parametro no le queden tares y si la mejor solucion
-        es null o tiene un tiempo de ejcución mayor la solucion del estado pase a ser la mejorsolucion
-        en caso contrario iteramos cada procesador y en caso de que pueda asignar la tarea y no sea
-        necesario podar la solucion parcial (estado). Asigne la tarea avance una tarea luego llama
-        recursivamente a la misma función y continua retrocediendo cada paso desasignando cada tarea
-        y retrocediendo para poder seguir buscando otras posibles soluciones usando los distintos
-        procesadores
+      En esta estrategia vamos asignando las tareas a cada procesador, con las restricciones del tiempo máximo de ejecución
+      de cada procesador no refrigerado y el límite máximo de tareas criticas por procesador.
+      Guardamos la mejor solución en una variable, y el estado con la solucion actual.
+      Mediante el mecanismo de poda, vamos descartando aquellas soluciones actuales que sean peor que la mejor solucion.
+      Con esto reducimos considerablemente el costo de la solución el cual vamos calculando con el contador de estados generados.
     */
 
     private void backtracking(Estado estado){
